@@ -6,7 +6,7 @@ class AdminController < ApplicationController
         redirect_to stores_url
       else
         flash[:notice]= "Invalid username/password.please try again"
-        render :action=> :login, status: :unprocessable_entity
+        render action: :login, status: :unprocessable_entity
 
       end
     end
