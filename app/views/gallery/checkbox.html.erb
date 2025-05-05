@@ -1,0 +1,57 @@
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+  <div class="row w-100">
+    <div class="col-md-6 offset-md-3">
+      <div class="card p-4 shadow">
+        
+        <% if flash[:notice] %>
+          <div class="alert alert-success text-center">
+            <%= flash[:notice] %>
+          </div>
+        <% end %>
+
+        <h3 class="text-center mb-4">
+          Total Amount to be paid: <%= number_to_currency(session[:amount], unit: "₹") %>
+        </h3>
+
+        <%= form_with url: "/gallery/checkbox", method: :post, local: true do |f| %>
+          <div class="mb-3">
+            <%= f.label :first_name, class: "form-label" %>
+            <%= f.text_field :first_name, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :last_name, class: "form-label" %>
+            <%= f.text_field :last_name, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :credit_card_no, "Credit Card Number", class: "form-label" %>
+            <%= f.text_field :credit_card_no, class: "form-control" %>
+          </div>
+
+          <div class="mb-3">
+            <%= f.label :date_of_expiry_month, "Expiry Month", class: "form-label" %>
+            <%= f.select :date_of_expiry_month, (1..12).map { |m| [Date::MONTHNAMES[m], m] }, { prompt: 'Select Month' }, class: "form-control form-control-sm mb-3", name: "check[date_of_expiry_month]" %>
+
+            <%= f.label :date_of_expiry_year, "Expiry Year", class: "form-label" %>
+            <%= f.select :date_of_expiry_year, (Time.now.year..(Time.now.year + 10)).map { |y| [y, y] }, { prompt: 'Select Year' }, class: "form-control form-control-sm", name: "check[date_of_expiry_year]" %>
+          </div>
+
+          <div class="mb-3">
+            <div class="row">
+              <div class="col-8">
+                <%= f.label :verification_number, "CVV", class: "form-label" %>
+                <%= f.text_field :verification_number, class: "form-control", maxlength: 4 %>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-grid">
+            <%= f.submit "Submit", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+
+      </div>
+    </div>
+  </div>
+</div>

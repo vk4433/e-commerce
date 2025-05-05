@@ -1,0 +1,23 @@
+<div id="<%= dom_id store %>">
+  <%= image_tag store.main_image, height: "100px", width: "100px" if store.main_image.attached?%>
+  <p>
+    <strong>Name:</strong>
+    <%= store.name %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= store.price %>
+  </p>
+
+  <p>
+    <strong>Unit:</strong>
+    <%= store.unit %>
+  </p>
+
+  <p>
+    <strong>Category:</strong>
+    <%= store.category %>
+  </p>
+
+</div>

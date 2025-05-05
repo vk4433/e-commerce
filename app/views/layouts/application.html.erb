@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= content_for(:title) || "Organixco" %></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= yield :head %>
+
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body>
+
+<div class="header_section">
+  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to  admin_login_path, class: "navbar-brand" do %>
+        <%= image_tag "/assets/logo.png" %>
+      <% end %>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <%= link_to "HOME", gallery_index_path, class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "VEGETABLES", gallery_index_path, class: "nav-link" %>
+          </li>
+        </ul>
+        <ul class="navbar-nav">
+          <% if user_signed_in? %>
+            <li class="nav-item">
+              <span class="nav-link">Logged in as <strong><%= current_user.email %></strong></span>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Edit Profile", edit_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Sign Up", new_user_registration_path, class: "nav-link" %>
+            </li>
+            <li class="nav-item">
+              <%= link_to "Login", new_user_session_path, class: "nav-link" %>
+            </li>
+          <% end %>
+          <% if session[:admin] %>
+            <li class="nav-item">
+              <%= link_to "Admin Logout", '/admin/logout', class: "nav-link" %>
+            </li>
+          <% else %>
+            <li class="nav-item">
+              <%= link_to "Admin Login", admin_login_path, class: "nav-link" %>
+            </li>
+          <% end %>
+        </ul>
+      </div>
+    </nav>
+  </div>
+</div>
+
+  <div class="banner_section layout_padding">
+    <div class="container">
+      <div id="main_slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="image_1"><img src="/assets/img-1.png"></div>
+              </div>
+              <div class="col-md-6">
+                <h1 class="banner_taital">Vegetables <span style="color: #ecad15;">Shop</span></h1>
+                <p class="banner_text">Enjoy the natural taste of farm-fresh fruits and vegetables, packed with flavor and nutrition.
+Handpicked daily to bring you the best from field to fork.</p>
+                <div class="buy_bt"><a href="#">Buy Now</a></div>
+                <div class="read_bt"><a href="#">Read More</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="image_1"><img src="/assets/img-1.png"></div>
+              </div>
+              <div class="col-md-6">
+                <h1 class="banner_taital">Vegetables <span style="color: #ecad15;">Shop</span></h1>
+ <p class="banner_text">Enjoy the natural taste of farm-fresh fruits and vegetables, packed with flavor and nutrition.Handpicked daily to bring you the best from field to fork.</p>
+                <div class="buy_bt"><a href="#">Buy Now</a></div>
+                <div class="read_bt"><a href="#">Read More</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="row">
+              <div class="col-md-6">
+                <div class="image_1"><img src="/assets/img-1.png"></div>
+              </div>
+              <div class="col-md-6">
+                <h1 class="banner_taital">Vegetables <span style="color: #ecad15;">Shop</span></h1>
+                <p class="banner_text">It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem</p>
+                <div class="buy_bt"><a href="#">Buy Now</a></div>
+                <div class="read_bt"><a href="#">Read More</a></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#main_slider" role="button" data-slide="prev">
+          <i class=""><img src="/assets/left-icon.png"></i>
+        </a>
+        <a class="carousel-control-next" href="#main_slider" role="button" data-slide="next">
+          <i class=""><img src="/assets/right-icon.png"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+                            <h4>Search</h4>
+<%= form_with url: "/gallery/search", method: :get do |form| %>
+<%= form.label :query, "Search for:" %>
+<%= form.text_field :keyword %>
+<%= form.submit "Search" %>
+          <form class="form-inline my-2 my-lg-0">
+
+<% end %>
+
+  <%= yield %>
+
+  </div>
+  <div class="choose_section layout_padding">
+  <div class="container">
+    <div class="image_2"><img src="/assets/img-2.png" alt="Our Team"></div>
+    <h1 class="about_taital">Why Choose Us</h1>
+    <div class="image_3"><img src="/assets/img-14.png" alt="Quality Assurance"></div>
+    <p class="lorem_text">
+      We’re committed to delivering excellence in everything we do. With a passionate team, innovative solutions, and customer-first mindset, we help you achieve your goals faster and more effectively. Our attention to detail, reliability, and proven track record make us the partner you can trust.
+    </p>
+    <div class="read_bt_1"><a href="#">Read More</a></div>
+  </div>
+</div>
+
+  <div class="testimonial_section layout_padding">
+    <div class="container">
+      <div id="my_slider" class="carousel slide" data-ride="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <div class="image_2"><img src="/assets/img-2.png"></div>
+            <h1 class="about_taital">Testimonial</h1>
+            <div class="testimonial_main">
+              <div class="client_main">
+                <div class="client_left">
+                  <div><img src="/assets/new.jpg" class="client_img"></div>
+                </div>
+                <div class="client_right">
+                  <h4 class="magna_text">Magna</h4>
+                  <p class="consectetur_text">Consectetur adipiscing</p>
+                </div>
+              </div>
+              <p class="ipsum_text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrudLorem ipsum</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="image_2"><img src="/assets/img-2.png"></div>
+            <h1 class="about_taital">Testimonial</h1>
+            <div class="testimonial_main">
+              <div class="client_main">
+                <div class="client_left">
+                  <div><img src="/assets/2ndn.avif" class="client_img"></div>
+                </div>
+                <div class="client_right">
+                  <h4 class="magna_text">Magna</h4>
+                  <p class="consectetur_text">Consectetur adipiscing</p>
+                </div>
+              </div>
+              <p class="ipsum_text">Fresh fruits and vegetables are nature’s purest source of health and energy.
+They nourish the body, uplift the mind, and brighten every meal.
+Simple, colorful, and full of life—they’re the foundation of true wellness.</p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <div class="image_2"><img src="/assets/img-2.png"></div>
+            <h1 class="about_taital">Testimonial</h1>
+            <div class="testimonial_main">
+              <div class="client_main">
+                <div class="client_left">
+                  <div><img src="/assets/client-img.png" class="client_img"></div>
+                </div>
+                <div class="client_right">
+                  <h4 class="magna_text">Magna</h4>
+                  <p class="consectetur_text">Consectetur adipiscing</p>
+                </div>
+              </div>
+              <p class="ipsum_text">Fresh fruits and vegetables are rich in vitamins and antioxidants that boost overall health. They support digestion, enhance energy, and reduce the risk of chronic diseases. Adding a variety of these to your diet keeps your meals both nutritious and delicious.</p>
+             </div>
+          </div>
+        </div>
+        <a class="carousel-control-prev" href="#my_slider" role="button" data-slide="prev">
+          <i class=""><img src="/assets/left-icon1.png"></i>
+        </a>
+        <a class="carousel-control-next" href="#my_slider" role="button" data-slide="next">
+          <i class=""><img src="/assets/right-icon1.png"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="footer_section layout_padding">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h1 class="address_text">Address</h1>
+          <div class="location_text"><a href="#"><img src="/assets/map-icon.png"><span class="padding_left_15">kormangala,</span></a></div>
+          <div class="location_text"><a href="#"><img src="/assets/call-icon.png"><span class="padding_left_15">( +91 9121866692 )</span></a></div>
+          <div class="location_text"><a href="#"><img src="/assets/mail-icon.png"><span class="padding_left_15">Locations</span></a></div>
+        </div>
+        <div class="col-md-4">
+          <h1 class="address_text">Social link</h1>
+          <div class="location_text"><a href="#"><img src="/assets/fb-icon.png"><span class="padding_left_15">Facebook</span></a></div>
+          <div class="location_text"><a href="#"><img src="/assets/twitter-icon.png"><span class="padding_left_15">Twitter</span></a></div>
+          <div class="location_text"><a href="#"><img src="/assets/instagram-icon.png"><span class="padding_left_15">Instagram</span></a></div>
+          <div class="location_text"><a href="#"><img src="/assets/Linkedin-icon.png"><span class="padding_left_15">Linkedin</span></a></div>
+        </div>
+        <div class="col-md-4">
+          <h1 class="address_text">Newsletter</h1>
+          <input type="text" class="enter_text" placeholder="Enter Your Email">
+          <div class="subscribe_bt"><a href="#">subscribe</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/jquery.min.js"></script>
+  <script src="/assets/popper.min.js"></script>
+  <script src="/assets/bootstrap.bundle.min.js"></script>
+  <script src="/assets/jquery-3.0.0.min.js"></script>
+  <script src="/assets/plugin.js"></script>
+  <script src="/assets/jquery.mCustomScrollbar.concat.min.js"></script>
+  <script src="/assets/custom.js"></script>
+  <script src="/assets/owl.carousel.js"></script>
+  <script src="https:cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+</body>
+
+</html>
