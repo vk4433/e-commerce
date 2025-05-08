@@ -1,40 +1,48 @@
-<%= form_with(model: store) do |form| %>
-  <% if store.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(store.errors.count, "error") %> prohibited this store from being saved:</h2>
+<div class="container text-center">
+  <h2 class="mb-4 text-primary"><%= "Add New Store" %></h2>
+  <%= form_with(model: store) do |form| %>
+    <% if store.errors.any? %>
+      <div class="alert alert-danger text-center" role="alert">
+        <h2><%= pluralize(store.errors.count, "error") %> prohibited this store from being saved:</h2>
+        <ul>
+          <% store.errors.each do |error| %>
+            <li><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
 
-      <ul>
-        <% store.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="mb-3">
+          <%= form.label :name, class: "form-label" %>
+          <%= form.text_field :name, class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :price, class: "form-label" %>
+          <%= form.text_field :price, class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :unit, class: "form-label" %>
+          <%= form.text_field :unit, class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :category, class: "form-label" %>
+          <%= form.text_field :category, class: "form-control form-control-sm" %>
+        </div>
+
+        <div class="mb-3">
+          <%= form.label :main_image, class: "form-label" %>
+          <%= form.file_field :main_image, class: "form-control form-control-sm" %>
+        </div>
+
+        <div>
+          <%= form.submit class: "btn btn-primary btn-sm" %>
+        </div>
+      </div>
     </div>
   <% end %>
-
-  <div>
-    <%= form.label :name, style: "display: block" %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div>
-    <%= form.label :price, style: "display: block" %>
-    <%= form.text_field :price %>
-  </div>
-
-  <div>
-    <%= form.label :unit, style: "display: block" %>
-    <%= form.text_field :unit %>
-  </div>
-
-  <div>
-    <%= form.label :category, style: "display: block" %>
-    <%= form.text_field :category %>
-  </div>
-  
-   <%= form.label :main_image %>
-  <%= form.file_field :main_image %>
-
-  <div>
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

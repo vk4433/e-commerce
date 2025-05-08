@@ -18,6 +18,7 @@ gem "stimulus-rails"
 gem "jbuilder"
 gem "devise"
 gem "activemerchant"
+gem "pry"
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
